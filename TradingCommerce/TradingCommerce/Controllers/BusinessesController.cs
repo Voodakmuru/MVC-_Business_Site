@@ -15,14 +15,17 @@ namespace TradingCommerce.Controllers
     {
         private businessContext db = new businessContext();
 
+        protected override void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            if (Session["userID"] == null)
+            {
+                Response.Redirect("/Login/Login");
+            }       
+        }
+
         // GET: Businesses
         public ActionResult Index()
-        {
-            if(Session["userID"] == null)
-            {
-                return RedirectToAction("Login", "Login");
-            }
-
+        {         
             var businesses = db.Businesses.Include(b => b.User);
             return View(businesses.ToList());
         }
@@ -30,10 +33,7 @@ namespace TradingCommerce.Controllers
         // GET: Businesses/Details/5
         public ActionResult Details(int? id)
         {
-            if (Session["userID"] == null)
-            {
-                return RedirectToAction("Login", "Login");
-            }
+
 
             if (id == null)
             {
@@ -50,10 +50,7 @@ namespace TradingCommerce.Controllers
         // GET: Businesses/Create
         public ActionResult Create()
         {
-            if (Session["userID"] == null)
-            {
-                return RedirectToAction("Login", "Login");
-            }
+ 
 
             ViewBag.userID = new SelectList(db.Users, "userID", "username");
             return View();
@@ -80,10 +77,7 @@ namespace TradingCommerce.Controllers
         // GET: Businesses/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (Session["userID"] == null)
-            {
-                return RedirectToAction("Login", "Login");
-            }
+
 
             if (id == null)
             {
@@ -118,10 +112,7 @@ namespace TradingCommerce.Controllers
         // GET: Businesses/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (Session["userID"] == null)
-            {
-                return RedirectToAction("Login", "Login");
-            }
+
 
             if (id == null)
             {

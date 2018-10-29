@@ -13,7 +13,7 @@ namespace TradingCommerce.Controllers
 {
     public class LoginController : Controller
     {
-        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDb)\MSSQLLocalDb;Initial Catalog=businessContext;Integrated Security=SSPI");
+        SqlConnection conn = new SqlConnection(@"Data Source=(Localdb)\MSSQLLocalDB;Initial Catalog=businessContext;Integrated Security=SSPI");
         private businessContext db = new businessContext();
         // GET: Login
         public ActionResult loginPage()
@@ -57,6 +57,21 @@ namespace TradingCommerce.Controllers
             }          
             conn.Close();
 
+            return View();
+        }
+
+        public ActionResult logout()
+        {
+            if (Session["userID"] == null && Session["securityLevel"] == null)
+            {
+                Response.Redirect("/Login/Login");
+            }
+            else
+            {
+                Session["userID"] = null;
+                Session["securityLevel"] = null;
+                ViewBag.message = "Your session has ended.";
+            }
             return View();
         }
     }

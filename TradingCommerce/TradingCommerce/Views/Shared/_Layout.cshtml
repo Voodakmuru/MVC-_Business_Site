@@ -26,20 +26,21 @@
                     <li>@Html.ActionLink("User", "Index", "Users")</li>
                     <li>@Html.ActionLink("Business", "Index", "Businesses")</li>
                     <li>@Html.ActionLink("Login", "login", "Login")</li>
-                </ul>
-            </div>
+                    <li>@Html.ActionLink("Logout", "logout", "Login")</li>
+            </ul>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+</div>
+<div class="container body-content">
+    @RenderBody()
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </footer>
+</div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
 </body>
 </html>

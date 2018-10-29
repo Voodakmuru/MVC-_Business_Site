@@ -15,6 +15,21 @@ namespace TradingCommerce.Controllers
     {
         private businessContext db = new businessContext();
 
+        protected override void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            if (Session["userID"] == null)
+            {
+                Response.Redirect("/Login/Login");
+            }
+            else
+            {
+                if(Session["securityLevel"].ToString() != "admin")
+                {
+                    Response.Redirect("/Login/Login");
+                }
+            }
+        }
+
         // GET: Users
         public ActionResult Index()
         {
