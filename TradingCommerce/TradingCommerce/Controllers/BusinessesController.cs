@@ -17,10 +17,7 @@ namespace TradingCommerce.Controllers
 
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            if (Session["userID"] == null)
-            {
-                Response.Redirect("/Login/Login");
-            }       
+            Security.checkLevel("client");   
         }
 
         // GET: Businesses
