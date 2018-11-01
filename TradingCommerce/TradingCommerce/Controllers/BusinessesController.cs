@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using TradingCommerce.DAL;
 using TradingCommerce.Models;
+using System.IO;
 
 namespace TradingCommerce.Controllers
 {
@@ -46,7 +47,9 @@ namespace TradingCommerce.Controllers
         public ActionResult Create()
         {
             ViewBag.userID = new SelectList(db.Users, "userID", "securityLevel");
-            return View();
+            Business business = new Business();
+            business.filePath = "New";
+            return View(business);
         }
 
         // POST: Businesses/Create
@@ -54,10 +57,16 @@ namespace TradingCommerce.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "businessID,businessName,filePath,userID")] Business business)
+        public ActionResult Create([Bind(Include = "businessID,businessName,filePath,userID, File")] Business business, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                if (file.ContentLength > 0)
+                {           
+                    business.filePath = "~/Photos/" + file.FileName;
+                    var path = Path.Combine(Server.MapPath("~/Photos"), file.FileName);
+                    file.SaveAs(path);
+                }
                 db.Businesses.Add(business);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -88,10 +97,19 @@ namespace TradingCommerce.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "businessID,businessName,filePath,userID")] Business business)
+        public ActionResult Edit([Bind(Include = "businessID,businessName,filePath,userID, File")] Business business, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                if (file != null)
+                {
+                    if (file.ContentLength > 0)
+                    {
+                        business.filePath = "~/Photos/" + file.FileName;
+                        var path = Path.Combine(Server.MapPath("~/Photos"), file.FileName);
+                        file.SaveAs(path);
+                    }
+                }
                 db.Entry(business).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
