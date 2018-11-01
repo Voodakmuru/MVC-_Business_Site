@@ -13,16 +13,16 @@ namespace TradingCommerce.Controllers
 {
     public class BusinessesController : Controller
     {
-        private businessContext db = new businessContext();
-
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            Security.checkLevel("client");   
+            Security.checkLevel("client");
         }
+
+        private businessContext db = new businessContext();
 
         // GET: Businesses
         public ActionResult Index()
-        {         
+        {
             var businesses = db.Businesses.Include(b => b.User);
             return View(businesses.ToList());
         }
@@ -30,8 +30,6 @@ namespace TradingCommerce.Controllers
         // GET: Businesses/Details/5
         public ActionResult Details(int? id)
         {
-
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -47,9 +45,7 @@ namespace TradingCommerce.Controllers
         // GET: Businesses/Create
         public ActionResult Create()
         {
- 
-
-            ViewBag.userID = new SelectList(db.Users, "userID", "username");
+            ViewBag.userID = new SelectList(db.Users, "userID", "securityLevel");
             return View();
         }
 
@@ -67,15 +63,13 @@ namespace TradingCommerce.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.userID = new SelectList(db.Users, "userID", "username", business.userID);
+            ViewBag.userID = new SelectList(db.Users, "userID", "securityLevel", business.userID);
             return View(business);
         }
 
         // GET: Businesses/Edit/5
         public ActionResult Edit(int? id)
         {
-
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -85,7 +79,7 @@ namespace TradingCommerce.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.userID = new SelectList(db.Users, "userID", "username", business.userID);
+            ViewBag.userID = new SelectList(db.Users, "userID", "securityLevel", business.userID);
             return View(business);
         }
 
@@ -102,15 +96,13 @@ namespace TradingCommerce.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.userID = new SelectList(db.Users, "userID", "username", business.userID);
+            ViewBag.userID = new SelectList(db.Users, "userID", "securityLevel", business.userID);
             return View(business);
         }
 
         // GET: Businesses/Delete/5
         public ActionResult Delete(int? id)
         {
-
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

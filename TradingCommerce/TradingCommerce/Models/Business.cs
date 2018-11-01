@@ -10,7 +10,8 @@ namespace TradingCommerce.Models
     {
         public int businessID { get; set; }
         public string businessName { get; set; }
+        public string filePath { get; set; }
         public int userID { get; set; }
-        public virtual User User { get; set; }
+        public virtual User User { get; set; }      
     }
 }
