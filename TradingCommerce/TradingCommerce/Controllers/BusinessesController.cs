@@ -13,12 +13,12 @@ namespace TradingCommerce.Controllers
 {
     public class BusinessesController : Controller
     {
+        private businessContext db = new businessContext();
+
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             Security.checkLevel("client");
         }
-
-        private businessContext db = new businessContext();
 
         // GET: Businesses
         public ActionResult Index()
@@ -54,7 +54,7 @@ namespace TradingCommerce.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "businessID,businessName,userID")] Business business)
+        public ActionResult Create([Bind(Include = "businessID,businessName,filePath,userID")] Business business)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +88,7 @@ namespace TradingCommerce.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "businessID,businessName,userID")] Business business)
+        public ActionResult Edit([Bind(Include = "businessID,businessName,filePath,userID")] Business business)
         {
             if (ModelState.IsValid)
             {

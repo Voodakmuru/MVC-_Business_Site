@@ -26,6 +26,16 @@
             @Html.DisplayFor(model => model.businessName)
         </dd>
 
+        <dt>
+            @*@Html.DisplayNameFor(model => model.filePath)*@
+            Image:
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.filePath)*@
+            <img src="@Url.Content(Html.DisplayFor(model => model.filePath).ToString())" class="img-rounded" />
+        </dd>
+
     </dl>
 </div>
 <p>

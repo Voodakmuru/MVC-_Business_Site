@@ -23,8 +23,8 @@ namespace TradingCommerce.DAL
 
             var businesses = new List<Business>
             {
-                new Business{businessName="Cades Place", userID=1},
-                new Business{businessName="Madies place", userID=2}
+                new Business{businessName="Cades Place", filePath="~/Photos/Beer_logo.png", userID=1},
+                new Business{businessName="Madies place", filePath="~/Photos/visa_logo.png", userID=2}
             };
 
             businesses.ForEach(s => context.Businesses.Add(s));
