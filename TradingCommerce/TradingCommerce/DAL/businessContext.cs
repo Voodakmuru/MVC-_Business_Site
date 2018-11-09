@@ -17,7 +17,7 @@ namespace TradingCommerce.DAL
 
         public DbSet<User> Users { get; set; }
         public DbSet<Business> Businesses {get; set;}
-
+        public DbSet<Event> Events { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

@@ -12,6 +12,7 @@ namespace TradingCommerce.Models
         public string businessName { get; set; }
         public string filePath { get; set; }
         public int userID { get; set; }
-        public virtual User User { get; set; }      
+        public virtual User User { get; set; }
+        public virtual ICollection<Event> Events { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<TradingCommerce.Models.Event>
+
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -10,20 +12,38 @@
 
 <div class="row">
     <div class="col-md-4">
-        <h2>Getting started</h2>
+        <h2>Local Events</h2>
         <p>
-            Create an account to register your business
+            Check out what businesses near you have to say:
         </p>
-        @*<p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more*@ @*&raquo;</a></p>*@
     </div>
-    @*<div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>*@
-    @*<div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>*@
+
 </div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Business.businessName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.details)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Business.businessName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.details)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.eventID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.eventID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.eventID })
+            </td>
+        </tr>
+    }
+</table>
