@@ -1,17 +1,17 @@
 ﻿@model IEnumerable<TradingCommerce.Models.Business>
-
+<link href="~/StyleSheet.css" rel="stylesheet" />
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
 
-<p>
+<p class="btn">
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
-        <th>
+        <th class="">
             @Html.DisplayNameFor(model => model.User.securityLevel)
         </th>
         <th>
@@ -34,9 +34,9 @@
         </td>
         <td>
             @*@Html.DisplayFor(modelItem => item.filePath)*@
-            <img src="@Url.Content(item.filePath)" class="img-rounded" height="50" width="50" />
+            <img style="background-color: white;" src="@Url.Content(item.filePath)" class="img-rounded" height="50" width="50" />
         </td>
-        <td>
+        <td class="btn">
             @Html.ActionLink("Edit", "Edit", new { id=item.businessID }) |
             @Html.ActionLink("Details", "Details", new { id=item.businessID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.businessID })

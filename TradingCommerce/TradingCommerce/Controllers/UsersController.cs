@@ -17,12 +17,29 @@ namespace TradingCommerce.Controllers
 
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            Security.checkLevel("admin");
+            Security.checkLevel("Client");
         }
 
         // GET: Users
         public ActionResult Index()
         {
+            try
+            {
+                var securityLevel = (string)System.Web.HttpContext.Current.Session["securityLevel"];
+                int userID = (int)System.Web.HttpContext.Current.Session["userID"];
+                if (securityLevel == "admin")
+                {
+                    return View(db.Users.ToList());
+                }
+                else
+                {
+                    return View(db.Users.Where(u => u.userID == userID).ToList());
+                }
+            }
+            catch
+            {
+                Response.Redirect("/Login/Login");
+            }
             return View(db.Users.ToList());
         }
 

@@ -1,0 +1,76 @@
+﻿body {
+    background-color: black;
+    color: white;   
+    font-family: 'Agency FB';
+}
+.btn{
+    color: cornflowerblue;
+    border: groove;
+    background-color: black;
+    padding: 10px;
+    text-decoration-color: white;
+    margin-bottom: 5px;
+}
+
+.txt0{
+    color: black;
+}
+
+.txt1{
+    color: white;
+}
+
+@keyframes myAnimation {
+    0% {
+        box-shadow: 0px 0px 10px #888;
+    }
+
+    25% {
+        box-shadow: 0px 0px 25px #888;
+    }
+
+    50% {
+        box-shadow: 0px 0px 35px #888;
+    }
+
+    75% {
+        box-shadow: 0px 0px 45px #888;
+    }
+
+    100% {
+        box-shadow: 0px 0px 55px #888;
+    }
+}
+
+.analog-clock {
+    width: 140px;
+    height: 140px;
+}
+
+#clock-face {
+    stroke: black;
+    stroke-width: 2px;
+    fill: white;
+}
+
+#h-hand, #m-hand, #s-hand, #s-tail {
+    stroke: black;
+    stroke-linecap: round;
+}
+
+#h-hand {
+    stroke-width: 3px;
+}
+
+#m-hand {
+    stroke-width: 2px;
+}
+
+#s-hand {
+    stroke-width: 1px;
+}
+
+.time-text {
+    text-align: center;
+}
+

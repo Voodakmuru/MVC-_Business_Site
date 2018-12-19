@@ -1,5 +1,5 @@
 ﻿@model TradingCommerce.Models.User
-
+<link href="~/StyleSheet.css" rel="stylesheet" />
 @{
     ViewBag.Title = "Details";
 }
@@ -36,7 +36,7 @@
 
     </dl>
 </div>
-<p>
+<p class="btn">
     @Html.ActionLink("Edit", "Edit", new { id = Model.userID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

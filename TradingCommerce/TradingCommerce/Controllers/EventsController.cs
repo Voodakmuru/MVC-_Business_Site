@@ -17,7 +17,9 @@ namespace TradingCommerce.Controllers
 
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            Security.checkLevel("admin");
+            Security.checkLevel("Client");
+
+            ViewBag.message = Security.securityLevel;
         }
 
         // GET: Events

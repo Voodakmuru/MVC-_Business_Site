@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<TradingCommerce.Models.Event>
-
+<link href="~/StyleSheet.css" rel="stylesheet" />
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
 
-<p>
+<p class="btn">
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
@@ -28,10 +28,14 @@
         <td>
             @Html.DisplayFor(modelItem => item.details)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.eventID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.eventID }) |
+        <td class="btn">
+            
+            @if (ViewBag.message == "admin")
+            { 
+            @Html.ActionLink("Edit", "Edit", new { id=item.eventID }) 
+            @Html.ActionLink("Details", "Details", new { id=item.eventID }) 
             @Html.ActionLink("Delete", "Delete", new { id=item.eventID })
+            }
         </td>
     </tr>
 }

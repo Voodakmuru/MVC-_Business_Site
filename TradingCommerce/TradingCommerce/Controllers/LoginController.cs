@@ -15,10 +15,10 @@ namespace TradingCommerce.Controllers
     {
         SqlConnection conn = new SqlConnection(@"Data Source=(Localdb)\MSSQLLocalDB;Initial Catalog=businessContext;Integrated Security=SSPI");
         private businessContext db = new businessContext();
-        
+
         // GET: Login
         public ActionResult loginPage()
-        { 
+        {
             return View();
         }
 
@@ -33,13 +33,18 @@ namespace TradingCommerce.Controllers
         [HttpPost]
         public ActionResult login([Bind(Include = "username, password")] User user)
         {
-                if ((user.username == null || user.password == null) || !Security.login (user.username, user.password))
-                {
-                    ViewBag.message = "Invalid Login";
-                    return View();
-                }    
-                
-            return View();  
+            if ((user.username == null || user.password == null) || !Security.login(user.username, user.password))
+            {
+                ViewBag.message = "Invalid Login";
+                return View();
+            }
+            else
+            {
+               // Session["userID"] = user.userID;
+               // Session["securityLevel"] = user.securityLevel;
+                Response.Redirect("/Home/Index");
+            }
+            return View();
         }
 
         public ActionResult logout()
@@ -50,8 +55,7 @@ namespace TradingCommerce.Controllers
             }
             else
             {
-                Session["userID"] = null;
-                Session["securityLevel"] = null;
+                System.Web.HttpContext.Current.Session["securityLevel"] = "";
                 ViewBag.message = "Your session has ended.";
             }
             return View();

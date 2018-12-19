@@ -1,5 +1,5 @@
 ﻿@model TradingCommerce.Models.Event
-
+<link href="~/StyleSheet.css" rel="stylesheet" />
 @{
     ViewBag.Title = "Delete";
 }
@@ -34,7 +34,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <p class="btn">@Html.ActionLink("Back to List", "Index")</p>
         </div>
     }
 </div>

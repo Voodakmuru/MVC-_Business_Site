@@ -12,7 +12,9 @@ namespace TradingCommerce
 {
     static public class Security
     {
-        static public bool login( string username, string password)
+        static public string securityLevel;
+
+        static public bool login(string username, string password)
         {
             SqlConnection conn = new SqlConnection(@"Data Source=(Localdb)\MSSQLLocalDB;Initial Catalog=businessContext;Integrated Security=SSPI");
             conn.Open();
@@ -21,7 +23,7 @@ namespace TradingCommerce
 
             SqlDataReader reader = co.ExecuteReader();
             int userID = -1;
-            string securityLevel = "";
+            securityLevel = "";
             if (reader.HasRows)
             {
                 reader.Read();
@@ -32,7 +34,7 @@ namespace TradingCommerce
             }
             conn.Close();
 
-            if(userID == -1)
+            if (userID == -1)
             {
                 return false;
             }
@@ -45,34 +47,37 @@ namespace TradingCommerce
         static public void checkLevel(string required)
         {
             bool isInvalid = true;
+            HttpContext.Current.Session["isInvalid"] = isInvalid;
 
-            if(HttpContext.Current.Session["securityLevel"] != null)
+            if (HttpContext.Current.Session["securityLevel"] == null)
             {
-                string securityLevel = HttpContext.Current.Session["securityLevel"].ToString();
-                if(securityLevel == "admin")
+
+            }
+            else
+            {
+                securityLevel = HttpContext.Current.Session["securityLevel"].ToString();
+                if (securityLevel == "admin")
                 {
                     isInvalid = false;
+                    HttpContext.Current.Session["isInvalid"] = isInvalid;
+                }
+                else if(securityLevel == "Client")
+                {
+                        if (required == "Client")
+                        {
+                            isInvalid = false;
+                            HttpContext.Current.Session["isInvalid"] = isInvalid;
+                        }                  
                 }
                 else
                 {
-                    if(required == "client")
-                    {
-                        isInvalid = false;
-                    }
-                }               
-            }
-            if (isInvalid)
-            {
-                HttpContext.Current.Session.Abandon();
-                HttpContext.Current.Response.Redirect("/Login/Login");
+                    isInvalid = true;
+                    HttpContext.Current.Response.Redirect("/Login/Login");
+                }
             }
         }
-       
-
- 
-
-}
+    }
 }
 
 
-    
+

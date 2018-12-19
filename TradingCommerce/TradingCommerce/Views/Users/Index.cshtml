@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<TradingCommerce.Models.User>
-
+<link href="~/StyleSheet.css" rel="stylesheet" />
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
 
-<p>
+<p class="btn">
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
@@ -34,7 +34,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.password)
         </td>
-        <td>
+        <td class="btn">
             @Html.ActionLink("Edit", "Edit", new { id=item.userID }) |
             @Html.ActionLink("Details", "Details", new { id=item.userID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.userID })

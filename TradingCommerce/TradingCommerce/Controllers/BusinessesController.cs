@@ -18,14 +18,30 @@ namespace TradingCommerce.Controllers
 
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            Security.checkLevel("client");
+            Security.checkLevel("Client");
         }
 
         // GET: Businesses
         public ActionResult Index()
         {
-            var businesses = db.Businesses.Include(b => b.User);
-            return View(businesses.ToList());
+            try
+            {
+                var securityLevel = (string)System.Web.HttpContext.Current.Session["securityLevel"];
+                int userID = (int)System.Web.HttpContext.Current.Session["userID"];
+                if (securityLevel == "admin")
+                {
+                    return View(db.Businesses.ToList());
+                }
+                else
+                {
+                    return View(db.Businesses.Where(b => b.userID == userID).ToList());
+                }
+            }
+            catch
+            {
+                Response.Redirect("/Login/Login");
+            }
+            return View(db.Businesses.ToList());      
         }
 
         // GET: Businesses/Details/5
@@ -46,7 +62,7 @@ namespace TradingCommerce.Controllers
         // GET: Businesses/Create
         public ActionResult Create()
         {
-            ViewBag.userID = new SelectList(db.Users, "userID", "securityLevel");
+            ViewBag.userID = new SelectList(db.Users, "userID", "userID");
             Business business = new Business();
             business.filePath = "New";
             return View(business);

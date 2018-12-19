@@ -1,5 +1,5 @@
 ﻿@model TradingCommerce.Models.Business
-
+<link href="~/StyleSheet.css" rel="stylesheet" />
 @{
     ViewBag.Title = "Details";
 }
@@ -33,12 +33,12 @@
 
         <dd>
             @*@Html.DisplayFor(model => model.filePath)*@
-            <img src="@Url.Content(Html.DisplayFor(model => model.filePath).ToString())" class="img-rounded" />
+            <img style="background-color: white;" src="@Url.Content(Html.DisplayFor(model => model.filePath).ToString())" class="img-rounded" />
         </dd>
 
     </dl>
 </div>
-<p>
+<p class="btn">
     @Html.ActionLink("Edit", "Edit", new { id = Model.businessID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
